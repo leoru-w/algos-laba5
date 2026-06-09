@@ -11,7 +11,7 @@ class Nice_calc_tree:
             return False
 
 
-def make_tree(tokens):
+def build_expression_tree(tokens):
     stack = []
 
     for t in tokens:
@@ -30,26 +30,26 @@ def make_tree(tokens):
         return None
 
 
-def calculate(versh):
-    if versh is None:
+def evaluate(root):
+    if root is None:
         return 0
 
-    if versh.is_leaf():
-        return versh.val
+    if root.is_leaf():
+        return root.val
 
-    v1 = calculate(versh.left)
-    v2 = calculate(versh.right)
+    v1 = evaluate(root.left)
+    v2 = evaluate(root.right)
 
-    if versh.val == '+':
+    if root.val == '+':
         return v1 + v2
-    elif versh.val == '-':
+    elif root.val == '-':
         return v1 - v2
-    elif versh.val == '*':
+    elif root.val == '*':
         return v1 * v2
-    elif versh.val == '/':
+    elif root.val == '/':
         return v1 / v2
-    elif versh.val == '^':
+    elif root.val == '^':
         return v1 ** v2
 
-print(calculate(make_tree(["2", "5", "*", "3", "+"])))
-print(calculate(make_tree(["2", "3", "^"])))
+print(evaluate(build_expression_tree(["2", "5", "*", "3", "+"])))
+print(evaluate(build_expression_tree(["2", "3", "^"])))
